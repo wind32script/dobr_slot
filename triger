@@ -1,4 +1,6 @@
-private _dobr_game = 0;	
+this addAction ["Казино Уточка", {        
+    params ["_target", "_caller"];        
+ private _dobr_game = 0;	
 private _rukzak = backpackItems player;
 		for "_i" from 0 to (count _rukzak) -1 do { 
 			_item = _rukzak select _i;
@@ -63,3 +65,6 @@ switch (_slot) do
 dobr_slot_box addItemCargoGlobal  [ "Land_Trophy_01_gold_F_Kit" , _winnings] ;
 ["SuccessTitleAndText", [ "Ваш приз у вас в рюкзаке: " +str _winnings ]] call ExileClient_gui_toaster_addTemplateToast; 
 
+
+         
+}];   
