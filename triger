@@ -1,6 +1,5 @@
 this addAction ["Казино Уточка", {        
-    params ["_target", "_caller"];        
- private _dobr_game = 0;	
+private _dobr_game = 0;	
 private _rukzak = backpackItems player;
 		for "_i" from 0 to (count _rukzak) -1 do { 
 			_item = _rukzak select _i;
@@ -20,8 +19,6 @@ private _slot21 = ceil(random 7);
 private _slot31 = ceil(random 7);
 _slotstr = str _slot11 +str _slot21+ str _slot31;
 _slot = parseNumber _slotstr;
-["SuccessTitleAndText", [ "Вам выпало " + str _slot ]] call ExileClient_gui_toaster_addTemplateToast; 
-
 switch (_slot) do
 {
     case 111:{_winnings = 40;};
@@ -58,12 +55,14 @@ switch (_slot) do
     default {_winnings = 0;}
 };
 
- if ( _winnings < 1) exitWith{
-        ["SuccessTitleAndText", [ "Неудача", "Вы проиграли, попробуй снова испытать удачу!" ]] call ExileClient_gui_toaster_addTemplateToast;
-      }; 
+ if ( _winnings < 1) then {
+        ["SuccessTitleAndText", [ "Вы проиграли", str _slot +" Вы проиграли, попробуй снова испытать удачу!" ]] call ExileClient_gui_toaster_addTemplateToast;
+      }else{
 	  
-dobr_slot_box addItemCargoGlobal  [ "Land_Trophy_01_gold_F_Kit" , _winnings] ;
-["SuccessTitleAndText", [ "Ваш приз у вас в рюкзаке: " +str _winnings ]] call ExileClient_gui_toaster_addTemplateToast; 
+			dobr_slot_box addItemCargoGlobal  [ "Land_Trophy_01_gold_F_Kit" , _winnings] ;
+			["SuccessTitleAndText", [ "Победа!!!", str _slot + " Ваш приз у вас в коробке рядом: " +str _winnings ]] call ExileClient_gui_toaster_addTemplateToast;
+		};
+
 
 
          
