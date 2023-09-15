@@ -1,0 +1,69 @@
+this addAction ["Казино Уточка", {        
+private _dobr_game = 0;	
+private _rukzak = backpackItems player;
+		for "_i" from 0 to (count _rukzak) -1 do { 
+			_item = _rukzak select _i;
+			if ( _item == "Exile_Item_RubberDuck"  ) then { 
+				_dobr_game = 2;
+				};
+		};
+
+ if ( _dobr_game < 1) exitWith{
+        ["ErrorTitleAndText", ["Уточки где?", "У вас в рюкзаке нет уточек( В казино играют за уточек!!!"]] call ExileClient_gui_toaster_addTemplateToast;
+      }; 
+
+player  RemoveItemFromBackpack  "Exile_Item_RubberDuck" ;		
+private _winnings = 0;
+private _slot11 = ceil(random 7);
+private _slot21 = ceil(random 7);
+private _slot31 = ceil(random 7);
+_slotstr = str _slot11 +str _slot21+ str _slot31;
+_slot = parseNumber _slotstr;
+switch (_slot) do
+{
+    case 111:{_winnings = 30;};
+    case 110:{_winnings = 5;};
+    case 123:{_winnings = 6;};
+    case 211:{_winnings = 1;};
+    case 123:{_winnings = 6;};
+    case 234:{_winnings = 4;};
+    case 345:{_winnings = 60;};
+    case 456:{_winnings = 9;};
+    case 567:{_winnings = 9;};
+    case 311:{_winnings = 5;};
+    case 411:{_winnings = 5;};
+    case 511:{_winnings = 5;};
+    case 611:{_winnings = 5;};
+    case 110:{_winnings = 5;};
+    case 112:{_winnings = 5;};
+    case 113:{_winnings = 5;};
+    case 114:{_winnings = 5;};
+    case 115:{_winnings = 5;};
+    case 116:{_winnings = 5;};
+    case 121:{_winnings = 2;};
+    case 131:{_winnings = 2;};
+    case 141:{_winnings = 2;};
+    case 151:{_winnings = 2;};
+    case 171:{_winnings = 2;};
+    case 121:{_winnings = 2;};
+    case 222:{_winnings = 20;};
+    case 333:{_winnings = 30;};
+    case 444:{_winnings = 40;};
+    case 555:{_winnings = 55;};
+    case 666:{_winnings = 66;};
+    case 777:{_winnings = 450;};
+    default {_winnings = 0;}
+};
+
+ if ( _winnings < 1) then {
+        ["SuccessTitleAndText", [ "Вы проиграли", str _slot +" Вы проиграли, попробуй снова испытать удачу!" ]] call ExileClient_gui_toaster_addTemplateToast;
+      }else{
+	  
+			dobr_slot_box addItemCargoGlobal  [ "Land_Trophy_01_gold_F_Kit" , _winnings] ;
+			["SuccessTitleAndText", [ "Победа!!!", str _slot + " Ваш приз у вас в коробке рядом: " +str _winnings ]] call ExileClient_gui_toaster_addTemplateToast;
+		};
+
+
+
+         
+}];   
